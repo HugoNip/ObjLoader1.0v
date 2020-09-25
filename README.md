@@ -71,7 +71,7 @@ f 1/2/8 3/13/8 4/14/8
 ```
 So :   
 
-***\#*** is a comment, just like **//** in C++   
+***#*** is a comment, just like **//** in C++   
 ***usemtl*** and ***mtllib*** describe the look of the model.   
 ***v*** is a vertex   
 ***vt*** is the texture coordinate of one vertex   
