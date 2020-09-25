@@ -53,7 +53,7 @@ Faces are defined using lists of vertex, texture and normal indices in the forma
 OBJ files also support free-form geometry which use curves and surfaces to define objects, such as NURBS surfaces.
 
 ### Vertex indices
-A valid vertex index matches the corresponding vertex elements of a previously defined vertex list. If an index is positive then it refers to the offset in that vertex list, starting at 1. If an index is negative then it relatively refers to the end of the vertex list, -1 referring to the last element.
+A valid vertex ***index*** matches the corresponding vertex elements of a previously defined vertex list. If an index is *positive* then it refers to the *offset* in that vertex list, starting at **1**. If an index is *negative* then it relatively refers to the *end* of the vertex list, **-1** referring to the *last* element.
 
 Each face can contain three or more vertices.
 ```
