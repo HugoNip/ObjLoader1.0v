@@ -369,7 +369,8 @@ For the first vertex,
 These numbers are called indices. It’s handy because if several vertices share the same position, you just have to write one “v” in the file, and use it several times. This saves memory.
 
 ### Creating an OBJ file in Blender
-Since our toy loader will be severely limited, we have to be extra careful to set the right options when exporting the file. Here’s how it should look in Blender:
+Since our toy loader will be severely limited, we have to be extra careful to set the right options when exporting the file. Here’s how it should look in Blender:   
+
 ![Blender.png](https://github.com/HugoNip/ObjLoader1.0v/blob/master/figures/Blender.png)
 
 
