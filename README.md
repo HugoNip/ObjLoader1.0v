@@ -368,6 +368,9 @@ For the first vertex,
 
 These numbers are called indices. It’s handy because if several vertices share the same position, you just have to write one “v” in the file, and use it several times. This saves memory.
 
+### Creating an OBJ file in Blender
+Since our toy loader will be severely limited, we have to be extra careful to set the right options when exporting the file. Here’s how it should look in Blender:
+![]()
 
 
 ## Reference
@@ -375,3 +378,4 @@ These numbers are called indices. It’s handy because if several vertices share
 [Wavefront .obj file Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file)     
 [Non-uniform rational B-spline](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline)     
 [Texture mapping](https://en.wikipedia.org/wiki/Texture_mapping)    
+[Blender Download](https://www.blender.org/)   
