@@ -352,7 +352,10 @@ f 8/11/7 7/12/7 6/10/7
 f 1/2/8 2/9/8 3/13/8
 f 1/2/8 3/13/8 4/14/8
 ```
-For f 8/11/7 7/12/7 6/10/7 :   
+For **f 8/11/7 7/12/7 6/10/7** with the format below:
+```
+f v1//vn1 v2//vn2 v3//vn3 ...
+```   
 
 **8/11/7** describes the first vertex of the triangle   
 **7/12/7** describes the second vertex of the triangle   
