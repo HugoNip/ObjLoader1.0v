@@ -52,37 +52,74 @@ Faces are defined using lists of vertex, texture and normal indices in the forma
 
 OBJ files also support free-form geometry which use curves and surfaces to define objects, such as NURBS surfaces.
 
-### Vertex indices
-A valid vertex ***index*** matches the corresponding vertex elements of a previously defined vertex list. If an index is *positive* then it refers to the *offset* in that vertex list, starting at **1**. If an index is *negative* then it relatively refers to the *end* of the vertex list, **-1** referring to the *last* element.
+#### Vertex indices
+A valid ***vertex index*** matches the corresponding vertex elements of a previously defined vertex list. If an index is *positive* then it refers to the *offset* in that vertex list, starting at **1**. If an index is *negative* then it relatively refers to the *end* of the vertex list, **-1** referring to the *last* element.
 
 Each face can contain three or more vertices.
 ```
 f v1 v2 v3 ....
 ```
 
-### Vertex texture coordinate indices
-Optionally, texture coordinate indices can be used to specify texture coordinates when defining a face. To add a texture coordinate index to a vertex index when defining a face, one must put a slash immediately after the vertex index and then put the texture coordinate index. No spaces are permitted before or after the slash. A valid texture coordinate index starts from 1 and matches the corresponding element in the previously defined list of texture coordinates. Each face can contain three or more elements.
+#### Vertex texture coordinate indices
+Optionally, ***texture coordinate indices*** can be used to specify texture coordinates when defining a face. To add a texture coordinate index to a vertex index when defining a face, one must put a slash immediately after the vertex index and then put the texture coordinate index. No spaces are permitted before or after the slash. A valid texture coordinate index starts from **1** and matches the corresponding element in the previously defined list of texture coordinates. Each face can contain three or more elements.
 ```
 f v1/vt1 v2/vt2 v3/vt3 ...
 ```
 
-### Vertex normal indices
-Optionally, normal indices can be used to specify normal vectors for vertices when defining a face. To add a normal index to a vertex index when defining a face, one must put a second slash after the texture coordinate index and then put the normal index. A valid normal index starts from 1 and matches the corresponding element in the previously defined list of normals. Each face can contain three or more elements.
+#### Vertex normal indices
+Optionally, ***normal indices*** can be used to specify normal vectors for vertices when defining a face. To add a normal index to a vertex index when defining a face, one must put a second slash after the texture coordinate index and then put the normal index. A valid normal index starts from **1** and matches the corresponding element in the previously defined list of normals. Each face can contain three or more elements.
 ```
 f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3 ...
 ```
 
-### Vertex normal indices without texture coordinate indices
+#### Vertex normal indices without texture coordinate indices
 As texture coordinates are optional, one can define geometry without them, but one must put two slashes after the vertex index before putting the normal index.
 ```
 f v1//vn1 v2//vn2 v3//vn3 ...
 ```
 
-### Line elements
-Records starting with the letter "l" specify the order of the vertices which build a polyline.
+#### Line elements
+Records starting with the letter "***l***" specify the order of the vertices which build a polyline.
 ```
 l v1 v2 v3 v4 v5 v6 ...
 ```
+
+### Other geometry formats
+Obj files support higher-order surfaces using several different kinds of interpolation, such as Taylor and B-splines, although support for those features in third party file readers is far from universal. Obj files also do not support mesh hierarchies or any kind of animation or deformation, such as vertex skinning or mesh morphing.
+
+### Referencing materials
+Materials that describe the visual aspects of the polygons are stored in external **.mtl** files. More than one external MTL material file may be referenced from within the OBJ file. The .mtl file may contain one or more named material definitions.
+```
+mtllib [external .mtl file name]
+...
+```
+
+This tag specifies the material name for the element following it. The material name matches a named material definition in an external .mtl file.
+```
+usemtl [material name]
+...
+```
+
+Named objects and polygon groups are specified via the following tags.
+```
+o [object name]
+  ...
+  g [group name]
+  ...
+```
+
+Smooth shading across polygons is enabled by smoothing groups.
+```
+s 1
+  ...
+  # Smooth shading can be disabled as well.
+  s off
+  ...
+```
+
+### Relative and absolute indices
+OBJ files, due to their list structure, are able to reference vertices, normals, etc. either by their absolute position (**1** represents the *first* defined vertex, **N** representing the *Nth* defined vertex), or by their relative position (**-1** represents the *latest* defined vertex). However, not all software supports the latter approach, and conversely some software inherently writes only the latter form (due to the convenience of appending elements without needing to recalculate vertex offsets, etc.), leading to occasional incompatibilities.
+
 
 ## Example OBJ file
 ### 1 UV coordinate and 1 normal per vertex
@@ -171,4 +208,4 @@ For the first vertex,
 ## Reference
 [Tutorial 7 : Model loading](http://www.opengl-tutorial.org/beginners-tutorials/tutorial-7-model-loading/#loading-the-obj)    
 [Wavefront .obj file Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file)     
-
+[Non-uniform rational B-spline](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline)     
