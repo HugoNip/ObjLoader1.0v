@@ -188,6 +188,118 @@ Multiple *illumination models* are available, per material. These are enumerated
 illum 2
 ```
 
+### Texture maps
+Textured materials use the same properties as above, and additionally define texture maps. Below is an example of a common material file. See the full wavefront file format reference for more details.
+```
+newmtl Textured
+   Ka 1.000 1.000 1.000
+   Kd 1.000 1.000 1.000
+   Ks 0.000 0.000 0.000
+   d 1.0
+   illum 2
+   # the ambient texture map
+   map_Ka lemur.tga
+   
+   # the diffuse texture map (most of the time, it will be the same as the ambient texture map)
+   map_Kd lemur.tga
+   
+   # specular color texture map
+   map_Ks lemur.tga
+   
+   # specular highlight component
+   map_Ns lemur_spec.tga
+   
+   # the alpha texture map
+   map_d lemur_alpha.tga
+   
+   # some implementations use 'map_bump' instead of 'bump' below
+   map_bump lemur_bump.tga
+   
+   # bump map (which by default uses luminance channel of the image)
+   bump lemur_bump.tga
+   
+   # displacement map
+   disp lemur_disp.tga
+   
+   # stencil decal texture (defaults to 'matte' channel of the image)
+   decal lemur_stencil.tga
+```
+
+Texture map statements may also have option parameters (see full spec).
+```
+   # texture origin (1,1,1) 
+   map_Ka -o 1 1 1 ambient.tga
+   
+   # spherical reflection map
+   refl -type sphere clouds.tga
+```
+
+### Texture options
+```
+-blendu on | off                       # set horizontal texture blending (default on)
+-blendv on | off                       # set vertical texture blending (default on)
+-boost float_value                     # boost mip-map sharpness
+-mm base_value gain_value              # modify texture map values (default 0 1)
+                                       #     base_value = brightness, gain_value = contrast
+-o u [v [w]]                           # Origin offset             (default 0 0 0)
+-s u [v [w]]                           # Scale                     (default 1 1 1)
+-t u [v [w]]                           # Turbulence                (default 0 0 0)
+-texres resolution                     # texture resolution to create
+-clamp on | off                        # only render texels in the clamped 0-1 range (default off)
+                                       #   When unclamped, textures are repeated across a surface,
+                                       #   when clamped, only texels which fall within the 0-1
+                                       #   range are rendered.
+-bm mult_value                         # bump multiplier (for bump maps only)
+
+-imfchan r | g | b | m | l | z         # specifies which channel of the file is used to 
+                                       # create a scalar or bump texture. r:red, g:green,
+                                       # b:blue, m:matte, l:luminance, z:z-depth.. 
+                                       # (the default for bump is 'l' and for decal is 'm')
+```
+
+For example,
+```
+# says to use the red channel of bumpmap.tga as the bumpmap
+bump -imfchan r bumpmap.tga
+```
+
+For reflection maps...
+```
+-type sphere                           # specifies a sphere for a "refl" reflection map    
+-type cube_top    | cube_bottom |      # when using a cube map, the texture file for each
+      cube_front  | cube_back   |      # side of the cube is specified separately
+      cube_left   | cube_right
+```
+
+### Vendor specific alterations
+Because of the ease in parsing the files, and the unofficial spreading of the file format, files may contain vendor specific alterations.
+
+According to the spec, options are supposed to precede the texture filename. However, at least one vendor generates files with options at the end.
+```
+# bump multiplier of 0.2
+bump texbump.tga -bm 0.2
+```
+
+#### Physically-based Rendering
+The creators of the online 3D editing and modeling tool, Clara.io, proposed extending the MTL format to contain the following parameters to represent the physically-based rendering parameters:
+```
+Pr/map_Pr     # roughness
+Pm/map_Pm     # metallic
+Ps/map_Ps     # sheen
+Pc            # clearcoat thickness
+Pcr           # clearcoat roughness
+Ke/map_Ke     # emissive
+aniso         # anisotropy
+anisor        # anisotropy rotation
+norm          # normal map, same format as "bump" parameter
+```
+
+Further proposed extensions come from the DirectXMesh toolkit for Microsoft's DirectX engine, allowing the ability to define a model's pre-compiled RMA material.
+```
+map_RMA       # RMA material (roughness, metalness, ambient occlusion)
+map_ORM       # alternate definition of map_RMA
+```
+
 ## Example OBJ file
 ### 1 UV coordinate and 1 normal per vertex
 An OBJ file looks more or less like this :    
@@ -276,3 +388,4 @@ For the first vertex,
 [Tutorial 7 : Model loading](http://www.opengl-tutorial.org/beginners-tutorials/tutorial-7-model-loading/#loading-the-obj)    
 [Wavefront .obj file Wikipedia](https://en.wikipedia.org/wiki/Wavefront_.obj_file)     
 [Non-uniform rational B-spline](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline)     
+[Texture mapping](https://en.wikipedia.org/wiki/Texture_mapping)    
