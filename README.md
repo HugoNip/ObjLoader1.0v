@@ -120,6 +120,73 @@ s 1
 ### Relative and absolute indices
 OBJ files, due to their list structure, are able to reference vertices, normals, etc. either by their absolute position (**1** represents the *first* defined vertex, **N** representing the *Nth* defined vertex), or by their relative position (**-1** represents the *latest* defined vertex). However, not all software supports the latter approach, and conversely some software inherently writes only the latter form (due to the convenience of appending elements without needing to recalculate vertex offsets, etc.), leading to occasional incompatibilities.
 
+## Material template library
+The **Material Template Library** format (MTL) or .MTL File Format is a companion file format to .OBJ, also defined by Wavefront Technologies, that describes surface shading (material) properties of objects within one or more .OBJ files. A .OBJ file references one or more .MTL files (called "material libraries"), and from there, references one or more material descriptions by name. .MTL files are ASCII text that define the light reflecting properties of a surface for the purposes of computer rendering, and according to the Phong reflection model. The standard has widespread support among different computer software packages, making it a useful format for interchange of materials.
+
+The MTL format, although still widely used, is outdated and does not fully support later technologies such as specular maps and parallax maps. However, due to the open and intuitive nature of the format, these can easily be added with a custom MTL file generator.
+
+The MTL format defines a number of formats.
+
+### Basic materials
+A single .mtl file may define multiple materials. Materials are defined one after another in the file, each starting with the ***newmtl*** command:
+```
+# define a material named 'Colored'
+newmtl Colored
+```
+
+The *ambient color* of the material is declared using ***Ka***. Color definitions are in RGB where each channel's value is between 0 and 1.
+```
+# white
+Ka 1.000 1.000 1.000
+```
+
+Similarly, the *diffuse color* is declared using ***Kd***.
+```
+# white
+Kd 1.000 1.000 1.000
+```
+
+The *specular color* is declared using ***Ks***, and weighted using the *specular exponent* ***Ns***.
+```
+# black (off)
+Ks 0.000 0.000 0.000
+
+# ranges between 0 and 1000
+Ns 10.000
+```
+
+Materials can be *transparent*. This is referred to as being *dissolved*. Unlike real transparency, the result does not depend upon the thickness of the object. A value of **1.0** for "***d***" is the *default* and means fully opaque, as does a value of **0.0** for "***Tr***".
+```
+# some implementations use 'd'
+d 0.9
+# others use 'Tr' (inverted: Tr = 1 - d)
+Tr 0.1
+```
+
+A material can also have an *optical density* for its surface. This is also known as *index of refraction*.
+```
+# optical density
+Ni 1.45000
+```
+Values can range from 0.001 to 10. A value of 1.0 means that light does not bend as it passes through an object. Increasing the optical density increases the amount of bending. Glass has an index of refraction of about 1.5. Values of less than 1.0 produce bizarre results and are not recommended.
+
+Multiple *illumination models* are available, per material. These are enumerated as follows:
+```
+0. Color on and Ambient off
+1. Color on and Ambient on
+2. Highlight on
+3. Reflection on and Ray trace on
+4. Transparency: Glass on, Reflection: Ray trace on
+5. Reflection: Fresnel on and Ray trace on
+6. Transparency: Refraction on, Reflection: Fresnel off and Ray trace on
+7. Transparency: Refraction on, Reflection: Fresnel on and Ray trace on
+8. Reflection on and Ray trace off
+9. Transparency: Glass on, Reflection: Ray trace off
+10. Casts shadows onto invisible surfaces
+```
+```
+illum 2
+```
 
 ## Example OBJ file
 ### 1 UV coordinate and 1 normal per vertex
