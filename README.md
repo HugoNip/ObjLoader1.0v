@@ -42,7 +42,7 @@ l 5 8 1 2 4 9
 ```
 
 ### Geometric vertex
-A vertex can be specified in a line starting with the letter v. That is followed by (***x***,***y***,***z***[,***w***]) coordinates. ***W*** is optional and defaults to **1.0**. Some applications support vertex colors, by putting red, green and blue values after ***x*** ***y*** and ***z***. The color values range from **0** to **1**.
+A vertex can be specified in a line starting with the letter v. That is followed by [(***x***,***y***,***z***[,***w***]) coordinates](http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/#homogeneous-coordinates). ***W*** is optional and defaults to **1.0**. Some applications support vertex colors, by putting red, green and blue values after ***x*** ***y*** and ***z***. The color values range from **0** to **1**.
 
 ### Parameter space vertices
 A free-form geometry statement can be specified in a line starting with the string ***vp***. Define points in parameter space of a curve or surface. ***u*** only is required for curve points, ***u*** and ***v*** for surface points and control points of *non-rational* trimming curves, and ***u***, ***v*** and ***w*** (weight) for control points of *rational* trimming curves.
