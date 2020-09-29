@@ -373,6 +373,10 @@ Since our toy loader will be severely limited, we have to be extra careful to se
 
 ![Blender.png](https://github.com/HugoNip/ObjLoader1.0v/blob/master/figures/Blender.png)
 
+## Output
+
+![cube.png](https://github.com/HugoNip/ObjLoader1.0v/blob/master/figures/cube.png)
+
 
 ## Reference
 [Related Project](https://github.com/HugoNip/OpenGLLearning/tree/master/tt07_model_loading)    
