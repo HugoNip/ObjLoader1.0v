@@ -6,6 +6,10 @@ OBJ (or .OBJ) is a geometry definition file format first developed by Wavefront 
 
 The OBJ file format is a simple data-format that represents 3D geometry alone — namely, the position of each vertex, the UV position of each texture coordinate vertex, vertex normals, and the faces that make each polygon defined as a list of vertices, and texture vertices. Vertices are stored in a counter-clockwise order by default, making explicit declaration of face normals unnecessary. OBJ coordinates have no units, but OBJ files can contain scale information in a human readable comment line.
 
+The obj file format (and many other common formats) store the mesh information in the face-vertex format:
+
+![vf.jpeg](https://github.com/HugoNip/ObjLoader1.0v/blob/master/figures/vf.jpeg)
+
 ## File Format
 Anything following a hash character (\#) is a comment.
 ```
